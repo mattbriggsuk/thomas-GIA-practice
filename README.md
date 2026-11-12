@@ -73,7 +73,6 @@ Settings and up to 100 session summaries are saved in your browser's local stora
 | `spatial-visualisation.html`, `spatial-visualisation.js` | Spatial Visualisation test and question generator. |
 | `shared.js` | Shared interface, settings, timers, scoring, history and results export. |
 | `styles.css` | Styles for all pages. |
-| `GIA-Example-Booklet-2018.pdf` | Supplied reference booklet, linked from the app. |
 | `tests/` | Node.js checks for question generation and local HTML asset references. |
 
 ## Checking question generation
