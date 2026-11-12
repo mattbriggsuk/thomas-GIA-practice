@@ -1,0 +1,9 @@
+(function(){
+  'use strict';
+  const {glyph,random,shuffle,pick,mountTest} = GIA;
+  const visual = pairs => `<div class="practice-mat" role="img" aria-label="Two symbol pairs. Count pairs that can match by rotation alone.">${pairs.map(p=>`<div class="spatial-card">${glyph(p.topMirror,p.topRotation)}${glyph(p.bottomMirror,p.bottomRotation)}</div>`).join('')}</div>`;
+  mountTest({id:'spatial-visualisation',number:'05',title:'Spatial Visualisation',description:'Mentally rotate each symbol. Count the pairs that match without reflection.',instructions:['There are two boxes. Each contains a top and bottom symbol.','Imagine rotating the bottom symbol in the plane of the screen. A matching pair can be made identical by rotation alone.','A mirror image does not match. Choose 0, 1 or 2 to indicate how many boxes contain matching pairs.'],example:visual([{topMirror:false,bottomMirror:true,topRotation:180,bottomRotation:90},{topMirror:false,bottomMirror:false,topRotation:90,bottomRotation:270}]),exampleExplanation:'The first pair contains a symbol and its mirror image. The second pair matches after rotation. Choose 1.',generate(){
+    const count=random(0,2),matching=shuffle([0,1]).slice(0,count); const pairs=Array.from({length:2},(_,i)=>{const topMirror=!!random(0,1);return {topMirror,bottomMirror:matching.includes(i)?topMirror:!topMirror,topRotation:pick([0,90,180,270]),bottomRotation:pick([0,90,180,270])};});
+    return {prompt:'How many pairs match after rotation?',visual:visual(pairs),options:['0','1','2'],correct:count,signature:JSON.stringify(pairs),detail:pairs,explanation:pairs.map((p,i)=>`Pair ${i+1} ${p.topMirror===p.bottomMirror?'matches by rotation':'does not match: one symbol is a mirror image of the other'}`).join('. ')+`. There ${count===1?'is 1 matching pair':`are ${count} matching pairs`}.`};
+  }});
+})();
